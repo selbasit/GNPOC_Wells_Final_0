@@ -65,7 +65,8 @@ def train_models(df):
     history = {'accuracy': [], 'val_accuracy': []}
 
     coords = df[['LATITUDE', 'LONGITUDE']].values
-    kmeans = KMeans(n_clusters=5, random_state=42)
+    n_clusters = min(5, len(coords))
+    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
     clusters = kmeans.fit_predict(coords)
 
     anomaly_features = df[['LATITUDE', 'LONGITUDE', 'YEAR']].dropna()
